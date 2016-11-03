@@ -57,5 +57,8 @@ generate_key <- function(path_experiment, path_control, collection_id) {
     select(strain_collection_id, strain_id, plate, row, column, everything()) %>%
     arrange(row, column)
 
+  plate384$row = as.integer(plate384$row)
+  plate384$column = as.integer(plate384$column)
+
   write_csv(plate384, paste0(collection_id, '.csv'))
 }

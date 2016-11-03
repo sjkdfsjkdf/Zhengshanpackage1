@@ -24,24 +24,24 @@ generate_key <- function(path_experiment, path_control, collection_id) {
   plate1 <-
     read_csv(path_experiment, col_types = cols()) %>%
     gather(column, strain_id, -row, convert = T) %>%
-    mutate(row = 2 * row, column = 2 * column)
+    mutate(row = 2L * row, column = 2L * column)
 
   plate2 <-
     read_csv(path_control, col_types = cols()) %>%
     gather(column, strain_id, -row, convert = T) %>%
-    mutate(row = 2 * row, column = 2 * column - 1)
+    mutate(row = 2L * row, column = 2L * column - 1L)
 
   plate3 <-
     read_csv(path_control, col_types = cols()) %>%
     gather(column, strain_id, -row, convert = T) %>%
-    mutate(row = 2 * row - 1, column = 2 * column)
+    mutate(row = 2L * row - 1L, column = 2L * column)
 
   plate4 <-
     read_csv(path_experiment, col_types = cols()) %>%
     gather(column, strain_id, -row, convert = T) %>%
     mutate(
-      row = 2 * (9 - row) - 1,
-      column = 2 * (13 - column) - 1
+      row = 2L * (9L - row) - 1L,
+      column = 2L * (13L - column) - 1L
     )
 
   plate384 <-
@@ -56,9 +56,6 @@ generate_key <- function(path_experiment, path_control, collection_id) {
     ) %>%
     select(strain_collection_id, strain_id, plate, row, column, everything()) %>%
     arrange(row, column)
-
-  plate384$row = as.integer(plate384$row)
-  plate384$column = as.integer(plate384$column)
 
   write_csv(plate384, paste0(collection_id, '.csv'))
 }

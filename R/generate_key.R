@@ -49,7 +49,7 @@ generate_key <- function(path_experiment, path_control, collection_id) {
     mutate(
       strain_collection_id = collection_id,
       plate = 1L,
-      plate_control = (strain_id == 'rec2458 pWJ1781'),
+      plate_control = ((row==1|16)|(column==1|24)),
       strain_collection_notes = ''
     ) %>%
     select(strain_collection_id, strain_id, plate, row, column, everything()) %>%
